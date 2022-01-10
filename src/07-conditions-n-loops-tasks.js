@@ -547,26 +547,23 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(position) {
-  if (position[0][0] === position[0][1] && position[0][0] === position[0][2]
-    && position[0][0]) return position[0][0];
-  if (position[1][0] === position[1][1] && position[1][0] === position[1][2]
-    && position[1][0]) return position[1][0];
-  if (position[2][0] === position[2][1] && position[2][0] === position[2][2]
-    && position[2][0]) return position[2][0];
-
-  if (position[0][0] === position[1][0] && position[0][0] === position[2][0]
-    && position[0][0]) return position[0][0];
-  if (position[0][1] === position[1][1] && position[0][1] === position[2][1]
-    && position[0][1]) return position[0][1];
-  if (position[0][2] === position[1][2] && position[0][2] === position[2][2]
-    && position[0][2]) return position[0][2];
-
-  if (position[0][0] === position[1][1] && position[0][0] === position[2][2]
-     && position[0][0]) return position[0][0];
-  if (position[0][2] === position[1][1] && position[0][2] === position[2][0]
-     && position[0][2]) return position[0][2];
-  return undefined;
+function evaluateTicTacToePosition(p) {
+  let rows = null;
+  p.forEach((el, i) => {
+    if (el[0] === el[1] && el[1] === el[2]) {
+      if (el['0']) rows = el['0'];
+    }
+    if (p[0][i] === p[1][i] && p[1][i] === p[2][i]) {
+      if (p['0'][i]) rows = p['0'][i];
+    }
+  });
+  if (p[0][0] === p[1][1] && p[1][1] === p[2][2]) {
+    if (p['1']['1']) rows = p['1']['1'];
+  }
+  if (p[0][2] === p[1][1] && p[1][1] === p[2][0]) {
+    if (p['1']['1']) rows = p['1']['1'];
+  }
+  return rows;
 }
 
 

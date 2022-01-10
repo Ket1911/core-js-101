@@ -114,17 +114,20 @@ function getFastestPromise(array) {
  *    });
  *
  */
-async function chainPromises(array, action) {
-  const arrayResult = await new Promise((res) => {
-    const resolved = [];
-
-    array.map((promise) => promise.then((promiseRes) => {
-      resolved.push(promiseRes);
-    }));
-
-    res(resolved);
-  });
-  return arrayResult.reduce(action);
+function chainPromises(array, action) {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    array.forEach((el) => {
+      el
+        .then((value) => results.push(value))
+        .catch(() => {
+          throw new Error('error');
+        });
+    });
+    resolve(results);
+    reject(new Error('big error'));
+  })
+    .then((results) => results.reduce((acc, el) => action(acc, el)));
 }
 
 module.exports = {
